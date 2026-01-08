@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lavana.id | Pesona Asli Buatan Negeri</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Plus+Jakarta+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root { --sage: #B2AC88; --terracotta: #A45C40; --dark-brown: #634E34; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #F8F8F0; }
+        .serif { font-family: 'Playfair Display', serif; }
+        .page { display: none; animation: fadeIn 0.4s ease-out; }
+        .page.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .batik-bg { background-image: url('https://www.transparenttextures.com/patterns/batik-fabric.png'); }
+        @keyframes scanMove { 0% { top: 0; } 100% { top: 100%; } }
+        .scan-line { position: absolute; width: 100%; height: 4px; background: var(--sage); box-shadow: 0 0 20px var(--sage); animation: scanMove 3s linear infinite; z-index: 20; }
+        .accent-sage { accent-color: var(--sage); }
+    </style>
+</head>
+<body class="batik-bg">
+
+    <nav id="navbar" class="hidden bg-white/95 backdrop-blur-md sticky top-0 z-50 border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center gap-4">
+            <div class="flex items-center gap-3 cursor-pointer" onclick="showPage('page-katalog')">
+                <span class="text-2xl font-bold text-[#B2AC88] serif uppercase tracking-tighter">LAVANA.ID</span>
+            </div>
+            <div class="flex-1 max-w-xl relative">
+                <input type="text" id="main-search" onkeyup="searchProduct()" placeholder="Cari produk asli Indonesia..." class="w-full bg-gray-100 px-5 py-2 rounded-full text-sm outline-none focus:ring-2 focus:ring-[#B2AC88]">
+            </div>
+            <div class="flex items-center gap-6 text-xl text-gray-400">
+                <span class="cursor-pointer hover:text-[#B2AC88]" onclick="showPage('page-checkout')">👜</span>
+                <span class="cursor-pointer hover:text-[#B2AC88]" onclick="showPage('page-seller')">🏢</span>
+                <span class="text-[10px] bg-gray-900 text-white px-3 py-1.5 rounded-full cursor-pointer font-bold uppercase" onclick="showPage('page-admin')">Admin</span>
+            </div>
+        </div>
+    </nav>
+
+    <div id="page-register" class="page active">
+        <section class="relative min-h-screen flex flex-col items-center justify-center p-6">
+            <img src="https://images.unsplash.com/photo-1537996194471-e657df975ab4" class="absolute inset-0 w-full h-full object-cover brightness-[0.6]">
+            <div class="relative z-10 w-full max-w-md bg-white/90 backdrop-blur-md p-8 rounded-[2.5rem] shadow-2xl border border-white/50">
+                <h3 class="text-2xl mb-8 text-center font-bold serif">Buat Akun Baru</h3>
+                <div class="space-y-4">
+                    <input type="text" id="reg-name" placeholder="Nama Lengkap" class="w-full p-4 rounded-full border border-gray-300 outline-none">
+                    <input type="email" placeholder="Email" class="w-full p-4 rounded-full border border-gray-300 outline-none">
+                    <input type="password" placeholder="Kata Sandi" class="w-full p-4 rounded-full border border-gray-300 outline-none">
+                    <button onclick="handleLogin()" class="w-full bg-[#A45C40] text-white py-4 rounded-full font-bold shadow-lg">DAFTAR SEKARANG</button>
+                    <button onclick="handleLogin()" class="w-full flex items-center justify-center gap-3 bg-white border border-gray-300 py-3 rounded-full text-sm font-semibold mt-4">
+                        <img src="https://www.google.com/favicon.ico" class="w-4"> Masuk dengan Google
+                    </button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div id="page-katalog" class="page max-w-7xl mx-auto py-10 px-4">
+        <div class="flex flex-col md:flex-row gap-8">
+            <aside class="w-full md:w-64 space-y-6">
+                <div class="bg-white p-6 rounded-3xl shadow-sm border">
+                    <p class="font-bold mb-4 uppercase text-xs tracking-widest text-[#B2AC88] border-b pb-2">Filter</p>
+                    <p class="text-sm font-bold mb-3">Asal Daerah</p>
+                    <div class="space-y-2 text-sm text-gray-500 mb-6">
+                        <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" checked class="accent-sage"> Bandung</label>
+                        <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" class="accent-sage"> Denpasar</label>
+                        <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" class="accent-sage"> Jakarta</label>
+                        <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" class="accent-sage"> Semarang</label>
+                        <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" class="accent-sage"> Surabaya</label>
+                        <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" class="accent-sage"> Medan</label>
+                        <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" class="accent-sage"> Madura</label>
+                        <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" class="accent-sage"> Palembang</label>
+                        <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" class="accent-sage"> Banda Aceh</label>
+                    </div>
+                    <p class="text-sm font-bold mb-3">Rentang Harga</p>
+                    <input type="range" min="10000" max="1000000" step="10000" oninput="updatePriceLabel(this.value)" class="w-full accent-sage">
+                    <div class="flex justify-between text-[10px] mt-2 text-gray-400 font-bold">
+                        <span>Rp 10rb</span><span id="price-label">Rp 1jt</span>
+                    </div>
+                </div>
+            </aside>
+            <div id="product-grid" class="flex-1 grid grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="product-card bg-white p-4 rounded-3xl shadow-sm border cursor-pointer hover:border-sage transition" onclick="showPage('page-detail')">
+                    <img src="https://down-id.img.susercontent.com/file/id-11134207-8224y-mfv202qcvuh46a" class="w-full aspect-square object-cover rounded-2xl mb-4">
+                    <h5 class="font-bold text-sm truncate name">Viva Whitening Cream</h5>
+                    <p class="text-[#A45C40] font-bold">Rp 20.000</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="page-detail" class="page max-w-5xl mx-auto py-10 px-4">
+        <div class="bg-white p-8 rounded-3xl shadow-sm border grid md:grid-cols-2 gap-12 mb-8">
+            <img src="https://down-id.img.susercontent.com/file/id-11134207-8224y-mfv202qcvuh46a" class="rounded-2xl w-full aspect-square object-cover">
+            <div class="flex flex-col">
+                <h2 class="text-3xl font-bold serif mb-2">Viva Whitening Cream</h2>
+                <p class="text-3xl text-[#A45C40] font-bold mb-6">Rp 20.000</p>
+                <div class="mb-8">
+                    <p class="text-xs font-bold text-[#B2AC88] uppercase tracking-widest mb-2 font-bold">Deskripsi Singkat</p>
+                    <p class="text-sm text-gray-500 italic leading-relaxed border-l-4 border-sage/30 pl-4">Krim wajah yang mengandung “Natural Whitening Complex Agent” dapat menyamarkan noda-noda hitam serta flek pada wajah Anda.</p>
+                </div>
+                <div class="space-y-3">
+                    <button onclick="showPage('page-analysis')" class="w-full py-4 bg-[#B2AC88] text-white rounded-xl font-bold shadow-md uppercase text-xs tracking-widest">🧪 Analisis Skin (AI)</button>
+                    <div class="flex gap-3">
+                        <button onclick="alert('Masuk Keranjang!')" class="flex-1 py-4 border-2 border-[#A45C40] text-[#A45C40] rounded-xl font-bold text-xs uppercase tracking-widest">🛒 Keranjang</button>
+                        <button onclick="showPage('page-checkout')" class="flex-1 bg-[#A45C40] text-white py-4 rounded-xl font-bold text-xs uppercase tracking-widest shadow-md">🛍️ Beli Sekarang</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white p-8 rounded-3xl shadow-sm border">
+            <div class="flex justify-between items-center mb-8">
+                <h3 class="text-lg font-bold serif uppercase tracking-widest border-b pb-4">Penilaian Produk</h3>
+                <button onclick="toggleModal('review-modal', true)" class="text-sage text-xs font-bold uppercase tracking-widest hover:underline">+ Tulis Ulasan</button>
+            </div>
+            
+            <div class="flex items-center gap-8 mb-10 bg-[#F3F4E9]/50 p-6 rounded-2xl border border-dashed border-sage">
+                <div class="text-center">
+                    <span class="text-4xl font-bold text-terracotta">4.9</span>
+                    <div class="text-yellow-400 text-xs mt-1">★★★★★</div>
+                </div>
+                <div class="flex flex-wrap gap-2">
+                    <span class="px-4 py-1.5 bg-white border border-sage text-sage rounded-full text-[10px] font-bold">Semua (128)</span>
+                    <span class="px-4 py-1.5 bg-white border border-gray-200 text-gray-400 rounded-full text-[10px]">Dengan Gambar (45)</span>
+                </div>
+            </div>
+
+            <div id="review-list" class="space-y-8">
+                <div class="border-b pb-6 last:border-0">
+                    <div class="flex items-center gap-3 mb-2">
+                        <div class="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center font-bold text-gray-500 text-[10px]">A</div>
+                        <span class="font-bold text-xs uppercase tracking-tighter">Annisa</span>
+                        <div class="text-yellow-400 text-[8px] ml-auto">★★★★★</div>
+                    </div>
+                    <p class="text-sm text-gray-600 italic">"Hasil scannya akurat banget, produknya juga cocok di kulit sensitif aku!"</p>
+                    <p class="text-[10px] text-gray-400 mt-4 font-mono uppercase tracking-tighter">2026-01-08 | Variasi: 20ML</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="page-analysis" class="page max-w-6xl mx-auto py-8 px-4">
+        <h2 class="text-center text-3xl font-serif mb-10 text-gray-700 uppercase tracking-widest">Kamera Analisis Skin</h2>
+        <div class="grid lg:grid-cols-3 gap-8 items-start">
+            <div class="relative bg-[#E2E8D5] aspect-[4/5] rounded-3xl border-4 border-white shadow-xl flex items-center justify-center overflow-hidden">
+                <div class="relative w-4/5 h-4/5 border-4 border-[#A45C40]/20 rounded-xl flex items-center justify-center">
+                    <div class="absolute top-0 left-0 w-10 h-10 border-t-8 border-l-8 border-[#A45C40] rounded-tl-xl"></div>
+                    <div class="absolute top-0 right-0 w-10 h-10 border-t-8 border-r-8 border-[#A45C40] rounded-tr-xl"></div>
+                    <div class="absolute bottom-0 left-0 w-10 h-10 border-b-8 border-l-8 border-[#A45C40] rounded-bl-xl"></div>
+                    <div class="absolute bottom-0 right-0 w-10 h-10 border-b-8 border-r-8 border-[#A45C40] rounded-br-xl"></div>
+                    <div class="scan-line"></div>
+                    <svg class="w-1/2 h-1/2 text-[#A45C40] opacity-40" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-5-9h10v2H7z"/></svg>
+                </div>
+            </div>
+            <div class="bg-white rounded-3xl shadow-lg border overflow-hidden divide-y divide-gray-100 uppercase text-xs font-bold">
+                <div class="p-4 flex justify-between"><span>💧 Moisture</span><span class="text-pink-400">Low</span></div>
+                <div class="p-4 flex justify-between"><span>🧪 Oiliness</span><span class="text-orange-400">Oily</span></div>
+                <div class="p-4 flex justify-between"><span>👤 Skin Tone</span><span>7</span></div>
+                <button onclick="showPage('page-detail')" class="w-full py-4 bg-stone-900 text-white font-bold uppercase text-[10px]">Selesai</button>
+            </div>
+            <div class="space-y-4">
+                <h3 class="serif text-xl border-b pb-2 uppercase text-center">Rekomendasi</h3>
+                <img src="https://down-id.img.susercontent.com/file/id-11134207-82251-mi9jj64a016oc6.webp" class="rounded-xl shadow-sm border p-1">
+            </div>
+        </div>
+    </div>
+
+    <div id="page-checkout" class="page max-w-6xl mx-auto py-10 px-4">
+        <h2 class="text-center text-3xl font-serif mb-12 tracking-[0.2em] text-gray-500 uppercase">Pembayaran</h2>
+        <div class="bg-white/90 rounded-[2.5rem] shadow-xl p-10 md:p-16 border border-white">
+            <div class="grid md:grid-cols-2 gap-16 uppercase text-[10px] font-bold tracking-widest">
+                <div class="space-y-6">
+                    <h2 class="text-xl text-gray-700">Pembeli</h2>
+                    <input type="text" placeholder="Nama" class="w-full p-4 bg-gray-50 border rounded-xl outline-none">
+                    <input type="text" placeholder="Alamat" class="w-full p-4 bg-gray-50 border rounded-xl outline-none">
+                    <input type="text" placeholder="Nomor HP" class="w-full p-4 bg-gray-50 border rounded-xl outline-none">
+                </div>
+                <div class="space-y-8">
+                    <h2 class="text-xl text-gray-700 uppercase">Metode Pembayaran</h2>
+                    <div class="space-y-3">
+                        <label class="flex items-center gap-3 cursor-pointer"><input type="radio" name="pay" checked class="accent-[#634E34]"> E-Wallet</label>
+                        <label class="flex items-center gap-3 cursor-pointer"><input type="radio" name="pay" class="accent-[#634E34]"> Transfer Bank</label>
+                    </div>
+                    <div class="pt-6 border-t font-bold uppercase">
+                        <div class="flex justify-between mb-4"><span>Total Tagihan</span><span>Rp20.000</span></div>
+                        <button onclick="alert('Pembayaran Berhasil!')" class="w-full bg-[#634E34] text-white py-5 rounded-xl uppercase tracking-widest shadow-lg">Bayar Sekarang</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="page-seller" class="page max-w-6xl mx-auto py-12 px-4">
+        <div class="bg-white p-12 rounded-[3rem] shadow-2xl border-t-[15px] border-sage relative overflow-hidden">
+            <div id="seller-ai-overlay" class="hidden absolute inset-0 bg-white/95 z-50 flex flex-col items-center justify-center">
+                <div class="relative w-64 h-80 border-4 border-gray-200 rounded-2xl overflow-hidden bg-gray-50">
+                    <div class="scan-line"></div>
+                    <div class="flex items-center justify-center h-full text-6xl opacity-10">📄</div>
+                </div>
+                <h3 class="text-xl font-bold serif uppercase tracking-widest text-sage mt-6 animate-pulse">AI Scanning Dokumen...</h3>
+            </div>
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div class="space-y-6">
+                    <h2 class="text-5xl serif font-bold text-sage uppercase">Seller Center</h2>
+                    <p class="text-sm text-gray-500 uppercase font-bold tracking-widest">Minimal 90% Bahan Baku Lokal</p>
+                </div>
+                <div class="bg-gray-50 p-10 rounded-[2.5rem] border space-y-5">
+                    <input type="text" id="s-name" placeholder="Nama Produk" class="w-full p-4 bg-white border rounded-2xl outline-none">
+                    <input type="number" id="s-price" placeholder="Harga (Rp)" class="w-full p-4 bg-white border rounded-2xl outline-none">
+                    <input type="number" id="s-pct" placeholder="Bahan Lokal (%)" class="w-full p-4 border-2 border-dashed border-sage bg-sage/5 rounded-2xl outline-none text-sage font-bold italic">
+                    <div class="border-2 border-dashed border-gray-300 p-8 text-center rounded-2xl text-[9px] font-bold uppercase tracking-widest text-gray-400 hover:border-sage bg-white cursor-pointer">Klik Untuk Upload Dokumen</div>
+                    <button onclick="runSellerAi()" class="w-full bg-[#B2AC88] text-white py-4 rounded-xl font-bold uppercase text-[10px] tracking-widest shadow-lg">Verifikasi AI</button>
+                    <div id="seller-result" class="text-center"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="page-admin" class="page max-w-4xl mx-auto py-12 px-4">
+        <div class="bg-gray-900 text-white p-10 rounded-3xl shadow-2xl uppercase text-[10px] tracking-widest">
+            <h2 class="text-xl serif mb-8 border-b border-gray-700 pb-4 text-center">Admin Approval</h2>
+            <table class="w-full text-left font-bold tracking-tighter">
+                <thead><tr class="border-b border-gray-700"><th class="pb-4">Produk</th><th>Lokal %</th><th>Aksi</th></tr></thead>
+                <tbody id="admin-list"><tr id="admin-empty"><td colspan="3" class="py-10 text-center text-gray-600">Kosong</td></tr></tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="review-modal" class="hidden fixed inset-0 bg-black/60 z-[100] flex items-center justify-center p-4">
+        <div class="bg-white w-full max-w-md rounded-3xl p-8 shadow-2xl">
+            <h3 class="text-xl font-bold serif mb-6 uppercase tracking-widest">Tulis Ulasan</h3>
+            <div class="space-y-4">
+                <input type="text" id="rev-name" placeholder="Nama Anda" class="w-full p-3 bg-gray-50 border rounded-xl outline-none uppercase text-xs font-bold tracking-widest">
+                <textarea id="rev-text" placeholder="Komentar..." class="w-full p-3 bg-gray-50 border rounded-xl h-32 outline-none text-xs font-bold uppercase tracking-widest"></textarea>
+                <div class="flex gap-2">
+                    <button onclick="toggleModal('review-modal', false)" class="flex-1 py-3 border rounded-xl font-bold uppercase text-[10px] tracking-widest text-gray-400">Batal</button>
+                    <button onclick="submitRev()" class="flex-1 bg-[#B2AC88] text-white py-3 rounded-xl font-bold uppercase text-[10px] tracking-widest">Kirim</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+            window.scrollTo(0,0);
+        }
+
+        function handleLogin() {
+            if(!document.getElementById('reg-name').value) return alert("Isi nama!");
+            document.getElementById('navbar').classList.remove('hidden');
+            showPage('page-katalog');
+        }
+
+        function toggleModal(id, s) { document.getElementById(id).classList.toggle('hidden', !s); }
+        function updatePriceLabel(v) { document.getElementById('price-label').innerText = "Rp " + (v/1000) + "rb"; }
+
+        function runSellerAi() {
+            const n = document.getElementById('s-name').value, p = document.getElementById('s-price').value, pct = parseInt(document.getElementById('s-pct').value);
+            if(!n || !p || isNaN(pct)) return alert("Data tidak lengkap!");
+            const overlay = document.getElementById('seller-ai-overlay');
+            overlay.classList.remove('hidden');
+            setTimeout(() => {
+                overlay.classList.add('hidden');
+                const b = document.getElementById('seller-result');
+                if(pct >= 90) {
+                    b.innerHTML = `<p class="mt-4 text-green-600 font-bold uppercase text-[10px] animate-pulse">Lolos AI (${pct}%) - Menunggu Admin</p>`;
+                    const id = "p-"+Date.now();
+                    const row = `<tr id="${id}" class="border-b border-gray-800"><td class="py-4">${n}</td><td class="text-green-400">${pct}%</td><td><button onclick="accAdmin('${id}','${n}',${p},${pct})" class="bg-green-600 px-3 py-1 rounded text-[8px] font-bold uppercase tracking-widest">ACC</button></td></tr>`;
+                    document.getElementById('admin-list').insertAdjacentHTML('afterbegin', row);
+                    if(document.getElementById('admin-empty')) document.getElementById('admin-empty').remove();
+                } else {
+                    b.innerHTML = `<p class="mt-4 text-red-600 font-bold text-[10px] uppercase font-bold tracking-widest">Gagal AI (Kandungan Lokal ${pct}% Kurang Dari 90%)</p>`;
+                }
+            }, 3000);
+        }
+
+        function accAdmin(id, n, p, pct) {
+            document.getElementById(id).remove();
+            const h = `<div class="product-card bg-white p-4 rounded-3xl shadow-sm border-2 border-green-300 relative animate-bounce" onclick="showPage('page-detail')"><span class="absolute top-2 right-2 bg-green-500 text-white text-[7px] px-2 py-1 rounded font-bold uppercase tracking-widest font-bold">${pct}% LOCAL</span><div class="w-full aspect-square bg-gray-100 rounded-xl mb-4 flex items-center justify-center text-gray-400 font-bold uppercase text-[10px]">Img</div><h5 class="font-bold text-sm name truncate uppercase tracking-tighter">${n}</h5><p class="text-terracotta font-bold text-sm">Rp ${parseInt(p).toLocaleString()}</p></div>`;
+            document.getElementById('product-grid').insertAdjacentHTML('afterbegin', h);
+            alert("Produk Berhasil Terbit!");
+            showPage('page-katalog');
+        }
+
+        function submitRev() {
+            const n = document.getElementById('rev-name').value, t = document.getElementById('rev-text').value;
+            if(!n || !t) return alert("Isi ulasan!");
+            const h = `<div class="border-b pb-6 last:border-0 text-[10px] font-bold uppercase tracking-tighter"><p>${n} <span class="text-yellow-400 ml-2">★★★★★</span></p><p class="text-gray-500 italic mt-2 font-light leading-relaxed">"${t}"</p></div>`;
+            document.getElementById('review-list').insertAdjacentHTML('afterbegin', h);
+            toggleModal('review-modal', false);
+        }
+
+        function searchProduct() {
+            const q = document.getElementById('main-search').value.toLowerCase();
+            document.querySelectorAll('.product-card').forEach(c => c.style.display = c.querySelector('.name').innerText.toLowerCase().includes(q) ? "block" : "none");
+        }
+    </script>
+</body>
+</html>
